@@ -40,6 +40,12 @@ export default class Artwork extends EventEmitter {
           ),
         },
         uColor: { value: new THREE.Color(this.debugParameters.color) },
+        uCursor: {
+          value: new THREE.Vector2(
+            this.experience.cursor.position.x,
+            this.experience.cursor.position.y
+          ),
+        },
       },
     });
   }
@@ -78,5 +84,9 @@ export default class Artwork extends EventEmitter {
 
   update() {
     this.material.uniforms.uTime.value = this.experience.time.elapsed / 1000;
+    this.material.uniforms.uCursor.value = this.experience.cursor.position
+      .clone()
+      .addScalar(1)
+      .multiplyScalar(0.5);
   }
 }
